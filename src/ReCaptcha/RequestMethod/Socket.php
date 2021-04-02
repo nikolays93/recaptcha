@@ -32,13 +32,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha\RequestMethod;
+// namespace ReCaptcha\RequestMethod;
 
 /**
  * Convenience wrapper around native socket and file functions to allow for
  * mocking.
  */
-class Socket
+class ReCaptchaRequestMethodSocket
 {
     private $handle = null;
 

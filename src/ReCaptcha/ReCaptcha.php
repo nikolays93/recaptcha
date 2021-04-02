@@ -32,12 +32,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha;
+// namespace ReCaptcha;
 
 /**
  * reCAPTCHA client.
  */
-class ReCaptcha
+class ReCaptchaReCaptcha
 {
     /**
      * Version of this client library.
@@ -128,20 +128,20 @@ class ReCaptcha
      *
      * @param string $secret The shared key between your site and reCAPTCHA.
      * @param RequestMethod $requestMethod method used to send the request. Defaults to POST.
-     * @throws \RuntimeException if $secret is invalid
+     * @throws RuntimeException if $secret is invalid
      */
-    public function __construct($secret, RequestMethod $requestMethod = null)
+    public function __construct($secret, $requestMethod = null)
     {
         if (empty($secret)) {
-            throw new \RuntimeException('No secret provided');
+            throw new RuntimeException('No secret provided');
         }
 
         if (!is_string($secret)) {
-            throw new \RuntimeException('The provided secret must be a string');
+            throw new RuntimeException('The provided secret must be a string');
         }
 
         $this->secret = $secret;
-        $this->requestMethod = (is_null($requestMethod)) ? new RequestMethod\Post() : $requestMethod;
+        $this->requestMethod = (is_null($requestMethod)) ? new ReCaptchaRequestMethodPost() : $requestMethod;
     }
 
     /**
@@ -156,13 +156,13 @@ class ReCaptcha
     {
         // Discard empty solution submissions
         if (empty($response)) {
-            $recaptchaResponse = new Response(false, array(self::E_MISSING_INPUT_RESPONSE));
+            $recaptchaResponse = new ReCaptchaResponse(false, array(self::E_MISSING_INPUT_RESPONSE));
             return $recaptchaResponse;
         }
 
-        $params = new RequestParameters($this->secret, $response, $remoteIp, self::VERSION);
+        $params = new ReCaptchaRequestParameters($this->secret, $response, $remoteIp, self::VERSION);
         $rawResponse = $this->requestMethod->submit($params);
-        $initialResponse = Response::fromJson($rawResponse);
+        $initialResponse = ReCaptchaResponse::fromJson($rawResponse);
         $validationErrors = array();
 
         if (isset($this->hostname) && strcasecmp($this->hostname, $initialResponse->getHostname()) !== 0) {
@@ -193,7 +193,7 @@ class ReCaptcha
             return $initialResponse;
         }
 
-        return new Response(
+        return new ReCaptchaResponse(
             false,
             array_merge($initialResponse->getErrorCodes(), $validationErrors),
             $initialResponse->getHostname(),

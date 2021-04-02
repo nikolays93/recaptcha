@@ -32,16 +32,16 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha\RequestMethod;
+// namespace ReCaptcha\RequestMethod;
 
-use ReCaptcha\ReCaptcha;
-use ReCaptcha\RequestMethod;
-use ReCaptcha\RequestParameters;
+// use ReCaptcha\ReCaptcha;
+// use ReCaptcha\RequestMethod;
+// use ReCaptcha\RequestParameters;
 
 /**
  * Sends POST requests to the reCAPTCHA service.
  */
-class Post implements RequestMethod
+class ReCaptchaRequestMethodPost implements ReCaptchaRequestMethod
 {
     /**
      * URL for reCAPTCHA siteverify API
@@ -56,16 +56,16 @@ class Post implements RequestMethod
      */
     public function __construct($siteVerifyUrl = null)
     {
-        $this->siteVerifyUrl = (is_null($siteVerifyUrl)) ? ReCaptcha::SITE_VERIFY_URL : $siteVerifyUrl;
+        $this->siteVerifyUrl = (is_null($siteVerifyUrl)) ? ReCaptchaReCaptcha::SITE_VERIFY_URL : $siteVerifyUrl;
     }
 
     /**
      * Submit the POST request with the specified parameters.
      *
-     * @param RequestParameters $params Request parameters
+     * @param ReCaptchaRequestParameters $params Request parameters
      * @return string Body of the reCAPTCHA response
      */
-    public function submit(RequestParameters $params)
+    public function submit($params)
     {
         $options = array(
             'http' => array(
@@ -83,6 +83,6 @@ class Post implements RequestMethod
             return $response;
         }
 
-        return '{"success": false, "error-codes": ["'.ReCaptcha::E_CONNECTION_FAILED.'"]}';
+        return '{"success": false, "error-codes": ["'.ReCaptchaReCaptcha::E_CONNECTION_FAILED.'"]}';
     }
 }

@@ -32,12 +32,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha\RequestMethod;
+// namespace ReCaptcha\RequestMethod;
 
 /**
  * Convenience wrapper around the cURL functions to allow mocking.
  */
-class Curl
+class ReCaptchaRequestMethodCurl
 {
 
     /**

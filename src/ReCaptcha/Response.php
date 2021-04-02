@@ -32,12 +32,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha;
+// namespace ReCaptcha;
 
 /**
  * The response returned from the service.
  */
-class Response
+class ReCaptchaResponse
 {
     /**
      * Success or failure.
@@ -85,14 +85,14 @@ class Response
      * Build the response from the expected JSON returned by the service.
      *
      * @param string $json
-     * @return \ReCaptcha\Response
+     * @return ReCaptchaResponse
      */
     public static function fromJson($json)
     {
         $responseData = json_decode($json, true);
 
         if (!$responseData) {
-            return new Response(false, array(ReCaptcha::E_INVALID_JSON));
+            return new ReCaptchaResponse(false, array(ReCaptchaReCaptcha::E_INVALID_JSON));
         }
 
         $hostname = isset($responseData['hostname']) ? $responseData['hostname'] : null;
@@ -102,14 +102,14 @@ class Response
         $action = isset($responseData['action']) ? $responseData['action'] : null;
 
         if (isset($responseData['success']) && $responseData['success'] == true) {
-            return new Response(true, array(), $hostname, $challengeTs, $apkPackageName, $score, $action);
+            return new ReCaptchaResponse(true, array(), $hostname, $challengeTs, $apkPackageName, $score, $action);
         }
 
         if (isset($responseData['error-codes']) && is_array($responseData['error-codes'])) {
-            return new Response(false, $responseData['error-codes'], $hostname, $challengeTs, $apkPackageName, $score, $action);
+            return new ReCaptchaResponse(false, $responseData['error-codes'], $hostname, $challengeTs, $apkPackageName, $score, $action);
         }
 
-        return new Response(false, array(ReCaptcha::E_UNKNOWN_ERROR), $hostname, $challengeTs, $apkPackageName, $score, $action);
+        return new ReCaptchaResponse(false, array(ReCaptchaReCaptcha::E_UNKNOWN_ERROR), $hostname, $challengeTs, $apkPackageName, $score, $action);
     }
 
     /**

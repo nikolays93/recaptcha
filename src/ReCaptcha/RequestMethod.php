@@ -32,12 +32,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha;
+// namespace ReCaptcha;
 
 /**
  * Method used to send the request to the service.
  */
-interface RequestMethod
+interface ReCaptchaRequestMethod
 {
 
     /**
@@ -46,5 +46,5 @@ interface RequestMethod
      * @param RequestParameters $params Request parameters
      * @return string Body of the reCAPTCHA response
      */
-    public function submit(RequestParameters $params);
+    public function submit($params);
 }

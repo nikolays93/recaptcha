@@ -32,12 +32,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace ReCaptcha;
+// namespace ReCaptcha;
 
 /**
  * Stores and formats the parameters for the request to the reCAPTCHA service.
  */
-class RequestParameters
+class ReCaptchaRequestParameters
 {
     /**
      * The shared key between your site and reCAPTCHA.
